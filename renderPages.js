@@ -53,7 +53,7 @@ const renderSignupPage=()=>{
                 <label for="student-box">I am a student</label>
                 
             </div>
-            <div class="form-group university-id-container">
+            <div style="display: none;" class="form-group university-id-container">
                 <label for="University-id">University ID</label>
                 <input type="text"  id="University-id" name="University-id">
             </div>
