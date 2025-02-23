@@ -1,0 +1,94 @@
+.auth-form-container{
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--input-background);
+}
+.auth-form{
+    background-color: var(--background);
+    color: var(--text);
+    display: flex;
+    border-radius: 30px ;
+    justify-content: center;
+    flex-direction: column;
+    padding: 60px 60px  ;
+    border: 4px solid var(--border-color);
+    box-shadow: 0px 0px 10px black;
+    width: 600px ;
+    
+}
+.auth-form h1{
+    font-size: 36px ;
+    font-weight: 600;
+    font-family: var(--font);
+    letter-spacing: 1px;
+    margin-bottom: 20px ;
+}
+.form-group{
+    display: flex;
+    flex-direction: column;
+    gap: 10px ;
+    margin-bottom: 10px ;
+}
+
+.form-group label{
+    font-size: 24px ;
+    font-weight: 600;
+    font-family: var(--font);
+    letter-spacing: 1px; 
+    cursor: pointer;
+}
+
+
+.form-group input{
+    outline: none;
+    border: none;
+    background-color: var(--input-background);
+    color: var(--text);
+    font-size: 22px ;
+    padding: 14px 10px ;
+    border-radius: var(--border-radus);
+    border: 2px solid var(--border-color);
+    flex-grow: 1;
+    flex-shrink: 1;
+    
+}
+.auth-btn{
+   width: 100%;
+    margin: auto;
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 24px ;
+    outline: none;
+    border: none;
+    background-color: var(--green);
+    border-radius: var(--border-radus);
+    padding: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.select-box{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: red;
+    justify-content: start;
+    gap: 0px ;
+    font-family: var(--font);
+    font-weight: 600;
+    font-size: 24px;
+    gap: 10px;
+}
+.select-box input{
+    width: fit-content;
+}
+@media screen and (max-width:430px) {
+    .auth-form{
+        width: 95%;
+        padding: 10px ;
+    }
+    
+}

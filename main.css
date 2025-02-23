@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+
+*{
+    padding: 0px ;
+    margin: 0px ;
+    box-sizing: border-box;
+}
+
+:root{
+    --input-background:#333;
+    --background:#1e1e1e;
+    --text:#e0e0e0;
+    --green:#4caf50;
+    --font:Lato;
+    --border-color:#444444;
+    --border-radus:8px ;
+} 
