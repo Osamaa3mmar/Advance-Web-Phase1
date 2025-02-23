@@ -28,7 +28,7 @@ const renderLoginPage=()=>{
                 
             </div>
             <input type="submit" class='auth-btn' value="Sign In">
-            <p class="sign-up-btn-page" onclick="goToSignUpPage()">signUp</p>
+            <p class="sign-up-btn-page" onclick="goToSignUpPage()">Dont have an account ? <span>signUp</span></p>
         </form>
     </div>`
 }
@@ -53,13 +53,13 @@ const renderSignupPage=()=>{
                 <label for="student-box">I am a student</label>
                 
             </div>
-            <div style="display: none;" class="form-group university-id-container">
+            <div  class="form-group university-id-container">
                 <label for="University-id">University ID</label>
                 <input type="text"  id="University-id" name="University-id">
             </div>
 
             <input type="submit" value="Sign Up" class='auth-btn'>
-            <p onclick="goToLoginPage()"> login</p>
+            <p onclick="goToLoginPage()">Have an account ? <span>login</span></p>
         </form>
     </div>`
 }

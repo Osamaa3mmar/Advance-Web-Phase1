@@ -14,14 +14,69 @@ const login=(e)=>{
             if(id.password==loginPasswordInput.value){
                 currentPage='main';
                 renderCurrentPage();
-                console.log("loged")
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    background: "#333",  // Dark background
+                    color: "#fff",       // White text
+                    iconColor: "#0f0",   // Green success icon color
+                    didOpen: (toast) => {
+                      toast.onmouseenter = Swal.stopTimer;
+                      toast.onmouseleave = Swal.resumeTimer;
+                    }
+                  });
+                  Toast.fire({
+                    icon: "success",
+                    title: "Signed in successfully !"
+                  });
             }
             else{
-                console.log('wrong password')
+                       
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: "#000",  // Dark background
+                color: "#fff",       // White text
+                iconColor: "#ff4d4d", // Red color for error icon
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                }
+              });
+              
+              Toast.fire({
+                icon: "error",
+                title: "Wrong Password !"
+              });
             }
         }
         else{
-            console.log("user not found !");
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: "#000",  // Dark background
+                color: "#fff",       // White text
+                iconColor: "#ff4d4d", // Red color for error icon
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                }
+              });
+              
+              Toast.fire({
+                icon: "error",
+                title: "User Not Found !"
+              });
+            
         }
     }
 }

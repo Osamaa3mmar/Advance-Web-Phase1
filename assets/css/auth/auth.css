@@ -19,6 +19,18 @@
     width: 500px ;
     
 }
+.auth-form p{
+    font-family: var(--font);
+    margin: auto;
+    margin-top: 8px;
+}
+
+.auth-form p span{
+    text-decoration: underline;
+    cursor: pointer;
+    color: blue;
+    margin-left: 6px;
+}
 .auth-form h1{
     font-size: 36px ;
     font-weight: 600;
