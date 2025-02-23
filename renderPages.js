@@ -4,6 +4,9 @@ const osama=document.querySelector('.osama');
 
 
 
+
+
+
 const renderLoginPage=()=>{
     
 
@@ -55,7 +58,7 @@ const renderSignupPage=()=>{
                 <input type="text"  id="University-id" name="University-id">
             </div>
 
-            <input type="submit" value="Sign Up">
+            <input type="submit" value="Sign Up" class='auth-btn'>
             <p onclick="goToLoginPage()"> login</p>
         </form>
     </div>`
