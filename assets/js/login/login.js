@@ -1,3 +1,8 @@
+
+
+
+
+
 const login=(e)=>{
     e.preventDefault();
     const loginPasswordInput=document.querySelector('#login-password');
@@ -27,7 +32,6 @@ const login=(e)=>{
                     title: "Signed in successfully !"
                   });
                   console.log(currentUser);
-                 
             }
             else{
               
