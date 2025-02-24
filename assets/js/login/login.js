@@ -4,51 +4,32 @@ const login=(e)=>{
     const loginUsernameInput=document.querySelector('#login-username');
     const users=JSON.parse(localStorage.getItem('users'));
     if(!users){
-        console.log("no User is in the system");
+     
+      
+        
+        Toast.fire({
+          icon: "error",
+          title: "User Not Found !"
+        });
+      
     }
     else{
-        const id=users.find((user)=>{
+        const currentUser=users.find((user)=>{
             return user.username===loginUsernameInput.value ;
         })
-        if(id){
-            if(id.password==loginPasswordInput.value){
-                currentPage='main';
+        if(currentUser){
+            if(currentUser.password==loginPasswordInput.value){
+              localStorage.setItem('currentUser',JSON.stringify(currentUser));
+                currentPage='home';
                 renderCurrentPage();
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    background: "#333",  // Dark background
-                    color: "#fff",       // White text
-                    iconColor: "#0f0",   // Green success icon color
-                    didOpen: (toast) => {
-                      toast.onmouseenter = Swal.stopTimer;
-                      toast.onmouseleave = Swal.resumeTimer;
-                    }
-                  });
                   Toast.fire({
                     icon: "success",
                     title: "Signed in successfully !"
                   });
+                  console.log(currentUser);
+                 
             }
             else{
-                       
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                background: "#000",  // Dark background
-                color: "#fff",       // White text
-                iconColor: "#ff4d4d", // Red color for error icon
-                didOpen: (toast) => {
-                  toast.onmouseenter = Swal.stopTimer;
-                  toast.onmouseleave = Swal.resumeTimer;
-                }
-              });
               
               Toast.fire({
                 icon: "error",
@@ -57,20 +38,7 @@ const login=(e)=>{
             }
         }
         else{
-            const Toast = Swal.mixin({
-                toast: true,
-                position: "top-end",
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                background: "#000",  // Dark background
-                color: "#fff",       // White text
-                iconColor: "#ff4d4d", // Red color for error icon
-                didOpen: (toast) => {
-                  toast.onmouseenter = Swal.stopTimer;
-                  toast.onmouseleave = Swal.resumeTimer;
-                }
-              });
+           
               
               Toast.fire({
                 icon: "error",
