@@ -149,3 +149,13 @@
         width: 77px;
     }
 }
+
+
+.page{
+    background-color: red;
+    flex-grow: 1;
+}
+
+.content{
+    width: 100%;
+}
