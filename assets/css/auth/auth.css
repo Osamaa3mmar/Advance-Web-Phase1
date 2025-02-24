@@ -72,15 +72,22 @@
     margin: auto;
     color: var(--text);
     font-family: var(--font);
-    font-size: 24px ;
+    font-size: 18px ;
     outline: none;
     border: none;
     background-color: var(--green);
     border-radius: var(--border-radus);
-    padding: 15px;
+    padding: 8px;
     font-weight: 500;
     cursor: pointer;
     margin-top: 10px;
+    border: 2px solid transparent;
+    transition: 400ms;
+
+}
+.auth-btn:hover{
+    background-color: var(--input-background);
+    border: 2px solid var(--green);
 }
 .select-box{
     display: flex;
