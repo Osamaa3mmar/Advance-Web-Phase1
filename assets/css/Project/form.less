@@ -1,0 +1,104 @@
+
+@btn-x-Color : #666;
+@font-size: 24px;
+@title-size: 18px;
+@borders:2px;
+@text-area-background:#2d2d2d;
+@text-area-border:#404040;
+@submit-btn:#4CAF50;
+
+.modal{
+        display: none; 
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    .modal-content{
+        position: relative;
+        background-color: var(--background);
+        width: 60%;
+        max-width: 600px;
+        margin: 50px auto;
+        border-radius: var(--border-radus);
+        padding: 20px;
+        color: var(--text);
+        .modal-header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .modal-title{
+                color: var(--blue);
+                font-weight: bold;
+            }
+            .close-btn{
+                background: none;
+                border: none;
+                color: @btn-x-Color;
+                font-size: @font-size;
+                cursor: pointer;
+                padding: 0 8px;
+            }
+            .close-btn:hover {
+                color: white;
+            }
+        }
+    }
+    .group{
+        .form-group{
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text);
+            .form-label{
+                font-size: @title-size;
+                font-weight: bold;
+                
+            }
+            .form-input ,.form-textarea ,.form-select{
+                width: 100%;
+                padding: 8px 12px;
+                background-color: @text-area-background;
+                border: 1px solid @text-area-border;
+                border-radius: var(--border-radus);
+                color: var(--text);
+                font-size: 14px;
+            }
+            .students-list {
+                height: 120px;
+                overflow-y: auto;
+                background-color: @text-area-background;
+                border: 1px solid @text-area-border;
+                border-radius: var(--border-radus);
+                padding: 8px;
+                .student-item {
+                    padding: 8px 12px;
+                    cursor: pointer;
+                    border-radius: var(--border-radus);
+                }
+                .student-item:hover {
+                    background-color: @text-area-border;
+                }
+            }
+
+
+        }
+        .date-inputs {
+            display: block;
+            gap: 20px;
+        }
+
+
+    }
+    .submit-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: @submit-btn;
+        color: var(--text);
+        border: none;
+        border-radius: var(--border-radus);
+        cursor: pointer;
+        font-size: @title-size;
+    }
+}

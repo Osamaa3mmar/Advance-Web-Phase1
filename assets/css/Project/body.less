@@ -1,0 +1,47 @@
+/* cards style */
+.cards-content{
+    .projects{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        .project-card{
+            width: 250px;
+            background-color: var(--card);
+            padding: 15px 15px;
+            border-radius: var(--border-radus);
+            border: 2px solid #444;
+            transition: 300ms;
+            margin: 2%;
+            .title{
+                padding-bottom: 3px;
+                font-weight: bold;
+            }
+            p{
+                color: var(--text);
+            }
+            .progress{
+                border-radius: var(--border-radus);
+                margin: 10px 0;
+                overflow: hidden;
+                .progress-bar{
+                    height: 100%;
+                    background-color: var(--blue);
+                    text-align: center;
+                    color: white;
+                }
+            }
+            .dates{
+                display: flex;
+                justify-content: space-between;
+                font-size: 12px;
+                color: var(--text);
+            }
+    
+        }
+        .project-card:hover{
+            transform: scale(1.03);
+        }
+    }
+}

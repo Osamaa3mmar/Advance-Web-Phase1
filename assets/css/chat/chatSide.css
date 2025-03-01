@@ -1,0 +1,75 @@
+.chat{
+    display: flex;
+    gap: 15px;
+}
+
+.sideUser {
+    padding: 15px 5px 0px 20px;
+    width: 20%;
+    height: calc(100dvh - 52px);
+   
+    
+    overflow-y: auto;
+    scrollbar-width:thin;
+    scrollbar-color: var(--input-background) transparent;
+    scroll-behavior: smooth;
+}
+
+.sideUser::-webkit-scrollbar {
+    width: 2px;
+}
+
+.sideUser::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 4px;
+}
+
+.sideUser::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.sideUser::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.sideUser h3{
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+.sideUser ul{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+}
+
+
+.sideUser ul li{
+    background-color:#444444;
+    width: 100%;
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 14px;
+    padding: 10px 8px;
+    border-radius: 4px;
+    text-transform: capitalize;
+    transition: 200ms;
+    cursor: pointer;
+}
+
+.sideUser ul li:hover{
+    outline:2px solid rgba(1, 124, 255, 0.5) ;
+
+
+}
+
+.active-user-chat-btn{
+    background-color: var(--blue) !important;
+    font-weight: 600;
+    outline:2px solid rgba(1, 124, 255, 0.5) ;
+}

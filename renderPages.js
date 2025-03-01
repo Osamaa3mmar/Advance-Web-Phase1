@@ -3,7 +3,6 @@ let currentPage=localStorage.getItem('currentPage');
 const osama=document.querySelector('.osama');
 
 
-
 const Toast = Swal.mixin({
     toast: true,
     position: "top-start",
@@ -50,7 +49,25 @@ const Toast = Swal.mixin({
 const renderHomePage=()=>{
     loadLayout('home');
     const page=document.querySelector(".page");
-    page.innerHTML="<div>Home</div>";
+    page.innerHTML=`
+    <div class="container">
+
+        <span class="title">Welcome to the Task Managment System</span>
+    <span id="date"></span>
+
+    <div class="cards_bar">
+    <div class="cards" >number of Projects <br> <span id="Projects_count">5</span></div>
+    <div class="cards">number of Students <br> <span id="Students_count">5</span></div>
+    <div class="cards">number of Tasks <br> <span id="Tasks_count">5</span></div>
+    <div class="cards">number of Finished Projects <br> <span id="Finished_Projects_count">5</span></div>
+    </div>
+    <div id="bottom">
+        <span>Admin Dashboard Overview</span>
+        <canvas id="myChart"></canvas>
+    </div>
+   
+    </div>`;
+    fun1();
 }
 
 const renderTasksPage=()=>{
@@ -61,12 +78,109 @@ const renderTasksPage=()=>{
 const renderProjectsPage=()=>{
     loadLayout('projects');
     const page=document.querySelector(".page");
-    page.innerHTML="<div>Projects</div>";
+    page.innerHTML=`  <div class="container">
+                    
+        <h1 class="title">Projects Overview</h1>
+        <div class="header">
+            <button class="add-project" onclick="document.getElementById('projectModal').classList.add('active')">
+                Add New Project
+            </button>
+            <input type="text" class="search-bar" placeholder="Search projects by title or description...">
+            <select class="status">
+                <option value="all">All Statuses</option>
+                <option value="in-progress">In Progress</option>
+                <option value="completed">Completed</option>
+                <option value="pending">Pending</option>
+                <option value="on-hold">On Hold</option>
+                <option value="cancelled">Cancelled</option>
+            </select>              
+        </div>
+        <br>
+        <div class="cards-content">
+            <div class="projects">
+                <script src="./assets/js/Project/card.js"></script>
+            </div>
+        </div>
+
+        <div id="projectModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Add New Project</h2>
+                    <button class="close-btn" onclick="document.getElementById('projectModal').classList.remove('active')">&times;</button>
+                </div>
+    
+                <div class="group">
+                    <div class="form-group">
+                        <label class="form-label">Project Title:</label>
+                        <input type="text" class="form-input" required>
+                    </div>
+    
+                    <div class="form-group">
+                        <label class="form-label">Project Description:</label>
+                        <textarea class="form-textarea" required></textarea>
+                    </div>
+    
+                    <div class="form-group">
+                        <label class="form-label">Students List:</label>
+                        <div class="students-list" id="studentsList">
+                        </div>
+                    </div>
+    
+                    <div class="form-group">
+                        <label class="form-label">Project Category:</label>
+                        <select class="form-select" required>
+                            <option value="" disabled selected>Select a category</option>
+                            <option value="web">Web Development</option>
+                            <option value="mobile">Mobile Development</option>
+                            <option value="design">Design</option>
+                            <option value="research">Research</option>
+                        </select>
+                    </div>
+    
+                    <div class="date-inputs">
+                        <div class="form-group">
+                            <label class="form-label">Starting Date:</label>
+                            <input type="date" class="form-input" required>
+                        </div>
+    
+                        <div class="form-group">
+                            <label class="form-label">Ending Date:</label>
+                            <input type="date" class="form-input" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Project Status:</label>
+                        <select class="form-select" required>
+                            <option value="in-progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                            <option value="on-hold">On Hold</option>
+                        </select>
+                    </div>
+    
+                    <button type="submit" class="submit-btn">Add Project</button>
+                </div>
+            </div>
+        </div> 
+    </div>`;
 }
 const renderChatPage=()=>{
+    const tempUsers=JSON.parse(localStorage.getItem('users'));
     loadLayout('chat');
     const page=document.querySelector(".page");
-    page.innerHTML="<div>Chats</div>";
+    page.innerHTML= `  <div class="chat">
+    <div class="sideUser">
+        <h3>List of Students</h3>
+        <ul class="user-list">
+        ${tempUsers?tempUsers.map((user)=>{
+            if(user.id!=JSON.parse(localStorage.getItem('currentUser')).id)
+            return`<li onclick="currentUser(${user.id})">${user.username}</li>`
+        }).join(''):'Empty'}
+        </ul>
+    </div>
+    <div class="chat-area">
+        osama
+    </div>
+</div>`;
 }
 
 const renderLoginPage=()=>{

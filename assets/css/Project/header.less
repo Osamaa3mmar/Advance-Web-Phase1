@@ -1,0 +1,53 @@
+@primary-color : #333;
+
+.page {
+    background-color: var(--background);
+    flex-grow: 1;
+}
+
+.content {
+    width: 100%;
+}
+
+.container{
+    width: 100%;
+    background-color: var(--background);
+    margin: 0;
+    padding: 1%;
+    .title{
+        color: var(--blue);
+        padding-bottom: 3px;
+    }
+    .header{
+        display: flex;
+        gap: 3%;
+        align-items: center;
+        .add-project{
+            text-align: center;
+            background-color: var(--blue);
+            color: var(--text);
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: var(--border-radus);
+        }
+        .search-bar{
+            flex-grow: 1;
+            padding: 10px;
+            border: none;
+            border-radius: var(--border-radus);
+        }
+        .status{
+            background-color: var(--status);
+            color: var(--background);
+            border-radius: var(--border-radus);
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+        .status option {
+            background-color: var(--status);
+            color: var(--background);
+        }
+    }
+}

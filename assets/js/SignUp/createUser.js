@@ -42,7 +42,9 @@ const signUpSubmit=(e)=>{
         username:signUpUserNameInput.value,
         password:signUpPasswordInput.value,
         universityId:universityIdBox.checked?signUpUniversityId.value:'',
-        role:universityIdBox.checked?'student':'admin'
+        role:universityIdBox.checked?'student':'admin',
+        color:Math.floor(Math.random() * 1000000),
+        id:JSON.parse(localStorage.getItem('users'))?JSON.parse(localStorage.getItem('users')).length+1:1,
     }
     const users=JSON.parse(localStorage.getItem('users'));
     if(!users){

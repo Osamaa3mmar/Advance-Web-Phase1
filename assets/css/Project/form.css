@@ -1,0 +1,95 @@
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+.modal .modal-content {
+  position: relative;
+  background-color: var(--background);
+  width: 60%;
+  max-width: 600px;
+  margin: 50px auto;
+  border-radius: var(--border-radus);
+  padding: 20px;
+  color: var(--text);
+}
+.modal.active {
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+}
+.modal .modal-content .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal .modal-content .modal-header .modal-title {
+  color: var(--blue);
+  font-weight: bold;
+}
+.modal .modal-content .modal-header .close-btn {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0 8px;
+}
+.modal .modal-content .modal-header .close-btn:hover {
+  color: white;
+}
+.modal .group .form-group {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.modal .group .form-group .form-label {
+  font-size: 18px;
+  font-weight: bold;
+}
+.modal .group .form-group .form-input,
+.modal .group .form-group .form-textarea,
+.modal .group .form-group .form-select {
+  width: 100%;
+  padding: 8px 12px;
+  background-color: #2d2d2d;
+  border: 1px solid #404040;
+  border-radius: var(--border-radus);
+  color: var(--text);
+  font-size: 14px;
+}
+.modal .group .form-group .students-list {
+  height: 120px;
+  overflow-y: auto;
+  background-color: #2d2d2d;
+  border: 1px solid #404040;
+  border-radius: var(--border-radus);
+  padding: 8px;
+}
+.modal .group .form-group .students-list .student-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: var(--border-radus);
+}
+.modal .group .form-group .students-list .student-item:hover {
+  background-color: #404040;
+}
+.modal .group .date-inputs {
+  display: block;
+  gap: 20px;
+}
+.modal .submit-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #4CAF50;
+  color: var(--text);
+  border: none;
+  border-radius: var(--border-radus);
+  cursor: pointer;
+  font-size: 18px;
+}

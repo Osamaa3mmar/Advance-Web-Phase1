@@ -152,7 +152,7 @@
 
 
 .page{
-    background-color: red;
+    background-color:var(--background);
     flex-grow: 1;
 }
 
