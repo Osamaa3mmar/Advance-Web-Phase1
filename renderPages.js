@@ -17,11 +17,12 @@ const Toast = Swal.mixin({
     }
   });
   const loadLayout=(pageId)=>{
+    const user=JSON.parse(localStorage.getItem("currentUser"));
     const layout=`<div class="app-layout">
         <div class="top-bar">
             <div class="name">
-                <div class="role-tag">admin</div>
-                <h3 class="username">osama </h3>
+                <div class="role-tag">${user.role}</div>
+                <h3 class="username">${user.username} </h3>
             </div>
             <button onclick="logout()">Logout</button>
         </div>
@@ -51,8 +52,7 @@ const renderHomePage=()=>{
     const page=document.querySelector(".page");
     page.innerHTML=`
     <div class="container">
-
-        <span class="title">Welcome to the Task Managment System</span>
+    <span class="title">Welcome to the Task Managment System</span>
     <span id="date"></span>
 
     <div class="cards_bar">
@@ -172,13 +172,35 @@ const renderChatPage=()=>{
         <h3>List of Students</h3>
         <ul class="user-list">
         ${tempUsers?tempUsers.map((user)=>{
-            if(user.id!=JSON.parse(localStorage.getItem('currentUser')).id)
+            if(user.id!=JSON.parse(localStorage.getItem('currentUser')).id&&JSON.parse(localStorage.getItem('currentUser')).role=='admin')
             return`<li onclick="currentUser(${user.id})">${user.username}</li>`
+        else if(user.id!=JSON.parse(localStorage.getItem('currentUser')).id&&user.role=='admin')
+            return`<li onclick="currentUser(${user.id})">${user.username}</li>`
+
         }).join(''):'Empty'}
         </ul>
     </div>
     <div class="chat-area">
-        osama
+        <div class="chat-box-start">
+        <h2> Chose Person To Start Chating ...</h2>
+        </div>
+
+        <div class="hide chat-box">
+        <div class="chat-container">
+        <div class="messages-box">
+        <div class="message-info">
+        <h3>Osama</h3>
+        </div>
+        <div class="messages">
+        
+        </div>
+        </div>
+        <form class="msg-form" onsubmit="message(event)">
+        <input class="text-input" placeholder="Type Your Message . . . " type="text" requierd/>
+        <input class="submit-input"  type="submit" value="Send"/>
+        </form>
+        </div>
+        </div>
     </div>
 </div>`;
 }
@@ -242,19 +264,16 @@ const renderEmpty=()=>{
 
 
 const renderCurrentPage=()=>{
-    
     if(currentPage==null||currentPage==''){
         localStorage.setItem('currentPage','login');
         renderLoginPage();
     }
     else if(currentPage=='login'){
         localStorage.setItem('currentPage','login');
-
         renderLoginPage();
     }
     else if(currentPage=='signup'){
         localStorage.setItem('currentPage','signup');
-
         renderSignupPage();
     }
     else if(currentPage=='home'){
@@ -276,8 +295,6 @@ const renderCurrentPage=()=>{
     else {
         renderEmpty();
     }
-
 }
-
 
 renderCurrentPage();
