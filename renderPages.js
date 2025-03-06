@@ -17,12 +17,11 @@ const Toast = Swal.mixin({
     }
   });
   const loadLayout=(pageId)=>{
-    const user=JSON.parse(localStorage.getItem("currentUser"));
     const layout=`<div class="app-layout">
         <div class="top-bar">
             <div class="name">
-                <div class="role-tag">${user.role}</div>
-                <h3 class="username">${user.username} </h3>
+                <div class="role-tag">admin</div>
+                <h3 class="username">osama </h3>
             </div>
             <button onclick="logout()">Logout</button>
         </div>
@@ -49,10 +48,13 @@ const Toast = Swal.mixin({
     }
 const renderHomePage=()=>{
     loadLayout('home');
+    let currStu=JSON.parse(localStorage.getItem("currentUser"))
+
     const page=document.querySelector(".page");
-    page.innerHTML=`
+    page.innerHTML=currStu.role=="admin"?`
     <div class="container">
-    <span class="title">Welcome to the Task Managment System</span>
+
+        <span class="title">Welcome to the Task Managment System</span>
     <span id="date"></span>
 
     <div class="cards_bar">
@@ -66,27 +68,103 @@ const renderHomePage=()=>{
         <canvas id="myChart"></canvas>
     </div>
    
-    </div>`;
+    </div>`:` `;
+   if(currStu.role=="admin")
     fun1();
 }
 
 const renderTasksPage=()=>{
+    let user=JSON.parse(localStorage.getItem("currentUser")).role
+
     loadLayout('tasks');
     const page=document.querySelector(".page");
-    page.innerHTML="<div>Tasks</div>";
+    page.innerHTML=`
+    <div class="TaskPageContainer">
+    <div class="header">
+        <div class="sort-container">
+            <label>Sort By:</label>
+            <select id="sortSelect" onchange="SortByHandler(event)">
+                <option value="status">Task Status</option>
+                <option value="dueDate">Due Date</option>
+                <option value="project">Project</option>
+                <option value="assigned">Assigned Student</option>
+
+            </select>
+        </div>
+        ${user=="admin"?'<button class="create-btn" onclick="openModal()">Create a New Task</button>':""}
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Task ID</th>
+                <th>Project</th>
+                <th>Task Name</th>
+                <th>Description</th>
+                <th>Assigned Student</th>
+                <th>Status</th>
+                <th>Due Date</th>
+            </tr>
+        </thead>
+        <tbody id="taskTableBody" onload="">
+           
+        </tbody>
+    </table>
+
+    <!-- Task Modal -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <form id="taskForm" class="modal-form">
+                <div class="head" style="display: flex; justify-content: space-between; align-items: center;">
+                    <h1>Create new Task</h1> 
+                    <span onclick="closeModal()" style="font-size: 30px; ">x</span></div>
+                <input type="hidden" id="taskId">
+                <div class="Form-input">
+                    <label for="project">Project:</label>
+                    <select id="project" onchange="init_users_list(this.value)">
+                    </select>
+                </div>
+                <div class="Form-input">
+                    <label for="taskName">Task Name:</label>
+                    <input type="text" id="taskName" required>
+                </div>
+                <div class="Form-input">
+                    <label for="description">Description:</label>
+                    <textarea id="description" required></textarea>
+                </div>
+                <div class="Form-input">
+                    <label for="assigned">Assigned Student:</label>
+                     <select id="assigned" >
+                <option>pi</option>
+                    </select>
+                </div>
+                <div class="Form-input">
+                    <label for="dueDate">Due Date:</label>
+                    <input type="date" id="dueDate" required>
+                </div>
+                <div class="button-group">
+                    <button type="button" onclick="saveTask()" class="create-btn">Add Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+    `;
+    BuildPage();
+
 }
 const renderProjectsPage=()=>{
     loadLayout('projects');
     const page=document.querySelector(".page");
-    page.innerHTML=`  <div class="project-container">
+    page.innerHTML=`  <div class="container">
                     
         <h1 class="title">Projects Overview</h1>
         <div class="header">
             <button class="add-project" onclick="document.getElementById('projectModal').classList.add('active')">
                 Add New Project
             </button>
-           <input type="text" class="search-bar" placeholder="Search projects by title..." onkeyup="searchProjects()">
-            <select class="status" onchange="filterProjects()">
+            <input type="text" class="search-bar" placeholder="Search projects by title or description...">
+            <select class="status">
                 <option value="all">All Statuses</option>
                 <option value="in-progress">In Progress</option>
                 <option value="completed">Completed</option>
@@ -96,7 +174,6 @@ const renderProjectsPage=()=>{
             </select>              
         </div>
         <br>
-        
         <div class="cards-content">
             <div class="projects">
                 <script src="./assets/js/Project/card.js"></script>
@@ -157,14 +234,12 @@ const renderProjectsPage=()=>{
                             <option value="on-hold">On Hold</option>
                         </select>
                     </div>
-                    <button class="submit-btn" onclick="saveProject()">Add Project</button>
-                    
+    
+                    <button type="submit" class="submit-btn">Add Project</button>
                 </div>
             </div>
         </div> 
     </div>`;
-    loadProjects();
-    loadStudents();
 }
 const renderChatPage=()=>{
     const tempUsers=JSON.parse(localStorage.getItem('users'));
@@ -175,35 +250,13 @@ const renderChatPage=()=>{
         <h3>List of Students</h3>
         <ul class="user-list">
         ${tempUsers?tempUsers.map((user)=>{
-            if(user.id!=JSON.parse(localStorage.getItem('currentUser')).id&&JSON.parse(localStorage.getItem('currentUser')).role=='admin')
+            if(user.id!=JSON.parse(localStorage.getItem('currentUser')).id)
             return`<li onclick="currentUser(${user.id})">${user.username}</li>`
-        else if(user.id!=JSON.parse(localStorage.getItem('currentUser')).id&&user.role=='admin')
-            return`<li onclick="currentUser(${user.id})">${user.username}</li>`
-
         }).join(''):'Empty'}
         </ul>
     </div>
     <div class="chat-area">
-        <div class="chat-box-start">
-        <h2> Chose Person To Start Chating ...</h2>
-        </div>
-
-        <div class="hide chat-box">
-        <div class="chat-container">
-        <div class="messages-box">
-        <div class="message-info">
-        <h3>Osama</h3>
-        </div>
-        <div class="messages">
-        
-        </div>
-        </div>
-        <form class="msg-form" onsubmit="message(event)">
-        <input class="text-input" placeholder="Type Your Message . . . " type="text" requierd/>
-        <input class="submit-input"  type="submit" value="Send"/>
-        </form>
-        </div>
-        </div>
+        osama
     </div>
 </div>`;
 }
@@ -267,16 +320,19 @@ const renderEmpty=()=>{
 
 
 const renderCurrentPage=()=>{
+    
     if(currentPage==null||currentPage==''){
         localStorage.setItem('currentPage','login');
         renderLoginPage();
     }
     else if(currentPage=='login'){
         localStorage.setItem('currentPage','login');
+
         renderLoginPage();
     }
     else if(currentPage=='signup'){
         localStorage.setItem('currentPage','signup');
+
         renderSignupPage();
     }
     else if(currentPage=='home'){
@@ -298,6 +354,9 @@ const renderCurrentPage=()=>{
     else {
         renderEmpty();
     }
+
+
 }
+
 
 renderCurrentPage();
