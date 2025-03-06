@@ -1,16 +1,36 @@
-const searchBar = document.querySelector(".search-bar");
-
-searchBar.addEventListener("keyup", function (e) {
-  let query = e.target.value.toLowerCase();
+function searchProjects() {
+  let query = document.querySelector(".search-bar").value.toLowerCase();
   let projectCards = document.querySelectorAll(".project-card");
 
   projectCards.forEach((card) => {
     let title = card.querySelector(".title").textContent.toLowerCase();
-    
-    if (title.includes(query) || query === "") {
-      card.style.display = "block"; // Show matching cards
-    } else {
-      card.style.display = "none"; // Hide non-matching cards
-    }
+
+    card.style.display = title.includes(query) || query === "" ? "block" : "none";
   });
-});
+}
+
+
+
+function filterProjects() {
+  const statusMapping = {
+    "all": null,
+    "in-progress": 50,
+    "completed": 100,
+    "pending": 25,
+    "on-hold": 10,
+    "cancelled": 0
+  };
+
+  const statusFilter = document.querySelector(".status");
+  const selectedValue = statusFilter.value;
+  const filterValue = statusMapping[selectedValue];
+
+  const projectCards = document.querySelectorAll(".project-card");
+
+  projectCards.forEach(card => {
+    const progressBar = card.querySelector(".progress-bar");
+    const progressValue = parseInt(progressBar.style.width, 10); // Extract percentage value
+
+    card.style.display = (filterValue === null || progressValue === filterValue) ? "block" : "none";
+  });
+}

@@ -1,26 +1,28 @@
 .page {
   background-color: var(--background);
   flex-grow: 1;
+  width: 80%;
 }
 .content {
   width: 100%;
 }
-.container {
-  width: 100%;
+.project-container {
+  width: 80%;
+  justify-self: center;
   background-color: var(--background);
   margin: 0;
   padding: 1%;
 }
-.container .title {
+.project-container .title {
   color: var(--blue);
   padding-bottom: 3px;
 }
-.container .header {
+.project-container .header {
   display: flex;
   gap: 3%;
   align-items: center;
 }
-.container .header .add-project {
+.project-container .header .add-project {
   text-align: center;
   background-color: var(--blue);
   color: var(--text);
@@ -29,13 +31,13 @@
   cursor: pointer;
   border-radius: var(--border-radus);
 }
-.container .header .search-bar {
+.project-container .header .search-bar {
   flex-grow: 1;
   padding: 10px;
   border: none;
   border-radius: var(--border-radus);
 }
-.container .header .status {
+.project-container .header .status {
   background-color: var(--status);
   color: var(--background);
   border-radius: var(--border-radus);
@@ -43,7 +45,7 @@
   border: none;
   cursor: pointer;
 }
-.container .header .status option {
+.project-container .header .status option {
   background-color: var(--status);
   color: var(--background);
 }

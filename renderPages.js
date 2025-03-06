@@ -78,15 +78,15 @@ const renderTasksPage=()=>{
 const renderProjectsPage=()=>{
     loadLayout('projects');
     const page=document.querySelector(".page");
-    page.innerHTML=`  <div class="container">
+    page.innerHTML=`  <div class="project-container">
                     
         <h1 class="title">Projects Overview</h1>
         <div class="header">
             <button class="add-project" onclick="document.getElementById('projectModal').classList.add('active')">
                 Add New Project
             </button>
-            <input type="text" class="search-bar" placeholder="Search projects by title or description...">
-            <select class="status">
+           <input type="text" class="search-bar" placeholder="Search projects by title..." onkeyup="searchProjects()">
+            <select class="status" onchange="filterProjects()">
                 <option value="all">All Statuses</option>
                 <option value="in-progress">In Progress</option>
                 <option value="completed">Completed</option>
@@ -96,6 +96,7 @@ const renderProjectsPage=()=>{
             </select>              
         </div>
         <br>
+        
         <div class="cards-content">
             <div class="projects">
                 <script src="./assets/js/Project/card.js"></script>
@@ -156,12 +157,14 @@ const renderProjectsPage=()=>{
                             <option value="on-hold">On Hold</option>
                         </select>
                     </div>
-    
-                    <button type="submit" class="submit-btn">Add Project</button>
+                    <button class="submit-btn" onclick="saveProject()">Add Project</button>
+                    
                 </div>
             </div>
         </div> 
     </div>`;
+    loadProjects();
+    loadStudents();
 }
 const renderChatPage=()=>{
     const tempUsers=JSON.parse(localStorage.getItem('users'));

@@ -1,6 +1,3 @@
-document.addEventListener("DOMContentLoaded", function () {
-  loadProjects();
-});
 
 function loadProjects() {
   let projects = JSON.parse(localStorage.getItem("projects")) || [];
@@ -41,37 +38,4 @@ function loadProjects() {
 }
 
 
-document.addEventListener("DOMContentLoaded", function () {
-  const statusFilter = document.querySelector(".status");
-  
-  const statusMapping = {
-      "all": null,
-      "in-progress": 50,
-      "completed": 100,
-      "pending": 25,
-      "on-hold": 10,
-      "cancelled": 0
-  };
 
-  statusFilter.addEventListener("change", function () {
-      const selectedValue = statusFilter.value;
-      const filterValue = statusMapping[selectedValue];
-
-      filterProjects(filterValue);
-  });
-
-  function filterProjects(progress) {
-      const projectCards = document.querySelectorAll(".project-card");
-
-      projectCards.forEach(card => {
-          const progressBar = card.querySelector(".progress-bar");
-          const progressValue = parseInt(progressBar.style.width, 10); // Extract percentage value
-
-          if (progress === null || progressValue === progress) {
-              card.style.display = "block"; // Show matching cards
-          } else {
-              card.style.display = "none"; // Hide non-matching cards
-          }
-      });
-  }
-});
