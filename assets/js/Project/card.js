@@ -9,6 +9,11 @@ function loadProjects() {
     return;
   }
 
+   let currentUser=JSON.parse(localStorage.getItem("currentUser"))
+   if(currentUser.role!="admin")
+    projects=projects.filter(t=>t.students.includes(currentUser.username));
+  
+ 
   projectsContainer.innerHTML = "";
 
   projects.forEach((project) => {

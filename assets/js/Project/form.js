@@ -35,7 +35,7 @@ function loadStudents() {
   const studentsListContainer = document.getElementById("studentsList");
   studentsListContainer.innerHTML = ""; // Clear existing list
 
-  const students = users.filter(user => user.role === "user");
+  const students = users.filter(user => user.role != "admin");
 
   students.forEach(student => {
       const studentItem = document.createElement("div");

@@ -5,20 +5,19 @@ function searchProjects() {
   projectCards.forEach((card) => {
     let title = card.querySelector(".title").textContent.toLowerCase();
 
-    card.style.display = title.includes(query) || query === "" ? "block" : "none";
+    card.style.display =
+      title.includes(query) || query === "" ? "block" : "none";
   });
 }
 
-
-
 function filterProjects() {
   const statusMapping = {
-    "all": null,
+    all: null,
     "in-progress": 50,
-    "completed": 100,
-    "pending": 25,
+    completed: 100,
+    pending: 25,
     "on-hold": 10,
-    "cancelled": 0
+    cancelled: 0,
   };
 
   const statusFilter = document.querySelector(".status");
@@ -27,10 +26,11 @@ function filterProjects() {
 
   const projectCards = document.querySelectorAll(".project-card");
 
-  projectCards.forEach(card => {
+  projectCards.forEach((card) => {
     const progressBar = card.querySelector(".progress-bar");
     const progressValue = parseInt(progressBar.style.width, 10); // Extract percentage value
 
-    card.style.display = (filterValue === null || progressValue === filterValue) ? "block" : "none";
+    card.style.display =
+      filterValue === null || progressValue === filterValue ? "block" : "none";
   });
 }
