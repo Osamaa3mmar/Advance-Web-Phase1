@@ -17,11 +17,12 @@ const Toast = Swal.mixin({
     }
   });
   const loadLayout=(pageId)=>{
+    const user=JSON.parse(localStorage.getItem("currentUser"));
     const layout=`<div class="app-layout">
         <div class="top-bar">
             <div class="name">
-                <div class="role-tag">admin</div>
-                <h3 class="username">osama </h3>
+                <div class="role-tag">${user.role}</div>
+                <h3 class="username">${user.username} </h3>
             </div>
             <button onclick="logout()">Logout</button>
         </div>
@@ -156,15 +157,15 @@ const renderTasksPage=()=>{
 const renderProjectsPage=()=>{
     loadLayout('projects');
     const page=document.querySelector(".page");
-    page.innerHTML=`  <div class="container">
+    page.innerHTML=`  <div class="project-container">
                     
         <h1 class="title">Projects Overview</h1>
         <div class="header">
             <button class="add-project" onclick="document.getElementById('projectModal').classList.add('active')">
                 Add New Project
             </button>
-            <input type="text" class="search-bar" placeholder="Search projects by title or description...">
-            <select class="status">
+           <input type="text" class="search-bar" placeholder="Search projects by title..." onkeyup="searchProjects()">
+            <select class="status" onchange="filterProjects()">
                 <option value="all">All Statuses</option>
                 <option value="in-progress">In Progress</option>
                 <option value="completed">Completed</option>
@@ -174,6 +175,7 @@ const renderProjectsPage=()=>{
             </select>              
         </div>
         <br>
+        
         <div class="cards-content">
             <div class="projects">
                 <script src="./assets/js/Project/card.js"></script>
@@ -234,12 +236,14 @@ const renderProjectsPage=()=>{
                             <option value="on-hold">On Hold</option>
                         </select>
                     </div>
-    
-                    <button type="submit" class="submit-btn">Add Project</button>
+                    <button class="submit-btn" onclick="saveProject()">Add Project</button>
+                    
                 </div>
             </div>
         </div> 
     </div>`;
+    loadProjects();
+    loadStudents();
 }
 const renderChatPage=()=>{
     const tempUsers=JSON.parse(localStorage.getItem('users'));
@@ -250,13 +254,35 @@ const renderChatPage=()=>{
         <h3>List of Students</h3>
         <ul class="user-list">
         ${tempUsers?tempUsers.map((user)=>{
-            if(user.id!=JSON.parse(localStorage.getItem('currentUser')).id)
+            if(user.id!=JSON.parse(localStorage.getItem('currentUser')).id&&JSON.parse(localStorage.getItem('currentUser')).role=='admin')
             return`<li onclick="currentUser(${user.id})">${user.username}</li>`
+        else if(user.id!=JSON.parse(localStorage.getItem('currentUser')).id&&user.role=='admin')
+            return`<li onclick="currentUser(${user.id})">${user.username}</li>`
+
         }).join(''):'Empty'}
         </ul>
     </div>
     <div class="chat-area">
-        osama
+        <div class="chat-box-start">
+        <h2> Chose Person To Start Chating ...</h2>
+        </div>
+
+        <div class="hide chat-box">
+        <div class="chat-container">
+        <div class="messages-box">
+        <div class="message-info">
+        <h3>Osama</h3>
+        </div>
+        <div class="messages">
+        
+        </div>
+        </div>
+        <form class="msg-form" onsubmit="message(event)">
+        <input class="text-input" placeholder="Type Your Message . . . " type="text" requierd/>
+        <input class="submit-input"  type="submit" value="Send"/>
+        </form>
+        </div>
+        </div>
     </div>
 </div>`;
 }
@@ -320,19 +346,16 @@ const renderEmpty=()=>{
 
 
 const renderCurrentPage=()=>{
-    
     if(currentPage==null||currentPage==''){
         localStorage.setItem('currentPage','login');
         renderLoginPage();
     }
     else if(currentPage=='login'){
         localStorage.setItem('currentPage','login');
-
         renderLoginPage();
     }
     else if(currentPage=='signup'){
         localStorage.setItem('currentPage','signup');
-
         renderSignupPage();
     }
     else if(currentPage=='home'){
@@ -354,9 +377,6 @@ const renderCurrentPage=()=>{
     else {
         renderEmpty();
     }
-
-
 }
-
 
 renderCurrentPage();

@@ -38,6 +38,7 @@
   border-radius: var(--border-radus);
 }
 .project-container .header .status {
+  width: fit-content;
   background-color: var(--status);
   color: var(--background);
   border-radius: var(--border-radus);
