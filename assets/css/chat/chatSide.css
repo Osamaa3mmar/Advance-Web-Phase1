@@ -6,9 +6,7 @@
 .sideUser {
     padding: 15px 5px 0px 20px;
     width: 20%;
-    height: calc(100dvh - 52px);
-   
-    
+    height: calc(100dvh - 52px);    
     overflow-y: auto;
     scrollbar-width:thin;
     scrollbar-color: var(--input-background) transparent;
@@ -199,4 +197,32 @@
     text-transform: capitalize;
     font-size: 10px;
     font-weight: 600;
+}
+
+
+@media screen and (max-width:550px){
+    .chat{
+        flex-direction: column;
+    }
+    .sideUser{
+        height: auto;
+        width: 100%;
+        
+
+    }
+    .sideUser ul{
+        flex-direction: row;
+        
+    }
+    .sideUser ul li{
+        width: auto;
+    }
+    .msg-form{
+        padding:4px;
+        flex-direction: column;
+    }
+    .msg-form input{
+        width: 100%;
+        flex-grow: 1;
+    }
 }
