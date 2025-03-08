@@ -210,10 +210,10 @@ const renderProjectsPage=()=>{
                         <label class="form-label">Project Category:</label>
                         <select class="form-select" required>
                             <option value="" disabled selected>Select a category</option>
-                            <option value="web">Web Development</option>
-                            <option value="mobile">Mobile Development</option>
-                            <option value="design">Design</option>
-                            <option value="research">Research</option>
+                            <option value="Web Development">Web Development</option>
+                            <option value="Mobile Development">Mobile Development</option>
+                            <option value="Design">Design</option>
+                            <option value="Research">Research</option>
                         </select>
                     </div>
     
