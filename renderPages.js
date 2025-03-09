@@ -1,24 +1,23 @@
-const app=document.querySelector('.app');
-let currentPage=localStorage.getItem('currentPage');
-const osama=document.querySelector('.osama');
-
+const app = document.querySelector(".app");
+let currentPage = localStorage.getItem("currentPage");
+const osama = document.querySelector(".osama");
 
 const Toast = Swal.mixin({
-    toast: true,
-    position: "top-start",
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    background: "#000", 
-    color: "#fff",        
-    didOpen: (toast) => {
-      toast.onmouseenter = Swal.stopTimer;
-      toast.onmouseleave = Swal.resumeTimer;
-    }
-  });
-  const loadLayout=(pageId)=>{
-    const user=JSON.parse(localStorage.getItem("currentUser"));
-    const layout=`<div class="app-layout">
+  toast: true,
+  position: "top-start",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  background: "#000",
+  color: "#fff",
+  didOpen: (toast) => {
+    toast.onmouseenter = Swal.stopTimer;
+    toast.onmouseleave = Swal.resumeTimer;
+  },
+});
+const loadLayout = (pageId) => {
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  const layout = `<div class="app-layout">
         <div class="top-bar">
             <div class="name">
                 <div class="role-tag">${user.role}</div>
@@ -32,10 +31,14 @@ const Toast = Swal.mixin({
             <i onclick="toggleSideBar()" class="cret fa-solid fa-caret-left"></i>
         </div>
             <ul>
-                <li onclick='goToPages("home")' class="nav-item ${pageId=='home'?'nav-item-active':''}"><i class="fa-solid fa-house"></i> Home</li>
-                <li onclick='goToPages("projects")' class="nav-item ${pageId=='projects'?'nav-item-active':''}"><i class="fa-solid fa-diagram-project"></i> Projects</li>
-                <li onclick='goToPages("tasks")' class="nav-item ${pageId=='tasks'?'nav-item-active':''}"><i class="fa-solid fa-list-check"></i> Tasks</li>
-                <li onclick='goToPages("chat")' class="nav-item ${pageId=='chat'?'nav-item-active':''}"><i class="fa-solid fa-message"></i> Chat</li>
+                <li onclick='goToPages("home")' class="nav-item ${pageId == "home" ? "nav-item-active" : ""
+    }"><i class="fa-solid fa-house"></i> Home</li>
+                <li onclick='goToPages("projects")' class="nav-item ${pageId == "projects" ? "nav-item-active" : ""
+    }"><i class="fa-solid fa-diagram-project"></i> Projects</li>
+                <li onclick='goToPages("tasks")' class="nav-item ${pageId == "tasks" ? "nav-item-active" : ""
+    }"><i class="fa-solid fa-list-check"></i> Tasks</li>
+                <li onclick='goToPages("chat")' class="nav-item ${pageId == "chat" ? "nav-item-active" : ""
+    }"><i class="fa-solid fa-message"></i> Chat</li>
             </ul>
         </div>
         <div class="page">
@@ -43,16 +46,22 @@ const Toast = Swal.mixin({
         </div>
     </div>
     </div>`;
-    app.innerHTML=layout;
-    document.querySelector('.username').innerHTML=JSON.parse(localStorage.getItem("currentUser")).username;
-    document.querySelector('.role-tag').innerHTML=JSON.parse(localStorage.getItem("currentUser")).role;
-    }
-const renderHomePage=()=>{
-    loadLayout('home');
-    let currStu=JSON.parse(localStorage.getItem("currentUser"))
+  app.innerHTML = layout;
+  document.querySelector(".username").innerHTML = JSON.parse(
+    localStorage.getItem("currentUser")
+  ).username;
+  document.querySelector(".role-tag").innerHTML = JSON.parse(
+    localStorage.getItem("currentUser")
+  ).role;
+};
+const renderHomePage = () => {
+  loadLayout("home");
+  let currStu = JSON.parse(localStorage.getItem("currentUser"));
 
-    const page=document.querySelector(".page");
-    page.innerHTML=currStu.role=="admin"?`
+  const page = document.querySelector(".page");
+  page.innerHTML =
+    currStu.role == "admin"
+      ? `
     <div class="container">
 
         <span class="title">Welcome to the Task Managment System</span>
@@ -69,17 +78,17 @@ const renderHomePage=()=>{
         <canvas id="myChart"></canvas>
     </div>
    
-    </div>`:` `;
-   if(currStu.role=="admin")
-    fun1();
-}
+    </div>`
+      : ` `;
+  if (currStu.role == "admin") fun1();
+};
 
-const renderTasksPage=()=>{
-    let user=JSON.parse(localStorage.getItem("currentUser")).role
+const renderTasksPage = () => {
+  let user = JSON.parse(localStorage.getItem("currentUser")).role;
 
-    loadLayout('tasks');
-    const page=document.querySelector(".page");
-    page.innerHTML=`
+  loadLayout("tasks");
+  const page = document.querySelector(".page");
+  page.innerHTML = `
     <div class="TaskPageContainer">
     <div class="header">
         <div class="sort-container">
@@ -92,7 +101,10 @@ const renderTasksPage=()=>{
 
             </select>
         </div>
-        ${user=="admin"?'<button class="create-btn" onclick="openModal()">Create a New Task</button>':""}
+        ${user == "admin"
+      ? '<button class="create-btn" onclick="openModal()">Create a New Task</button>'
+      : ""
+    }
     </div>
 
     <table>
@@ -151,13 +163,12 @@ const renderTasksPage=()=>{
     </div>
     </div>
     `;
-    BuildPage();
-
-}
-const renderProjectsPage=()=>{
-    loadLayout('projects');
-    const page=document.querySelector(".page");
-    page.innerHTML=`  <div class="project-container">
+  BuildPage();
+};
+const renderProjectsPage = () => {
+  loadLayout("projects");
+  const page = document.querySelector(".page");
+  page.innerHTML = `  <div class="project-container">
                     
         <h1 class="title">Projects Overview</h1>
         <div class="header">
@@ -175,7 +186,26 @@ const renderProjectsPage=()=>{
             </select>              
         </div>
         <br>
+        <div class="project-info-container">
         
+              <div class="project-info">
+            <button class="close-btn">×</button>
+            <h1 class="project-title"></h1>
+            <hr>
+            <div class="project-details">
+                <p><strong>Description:</strong> <span class="project-description"></span></p>
+                <p><strong>Category:</strong> <span class="project-category"></span></p>
+                <p><strong>Students:</strong> <span class="project-students"></span></p>
+                <p><strong>Start Date:</strong> <span class="project-start"></span></p>
+                <p><strong>End Date:</strong> <span class="project-end"></span></p>
+            </div>
+            <h2 class="tasks-title">Tasks</h2>
+            <hr>
+            <div class="task-list">
+                <!-- Tasks will be inserted here dynamically -->
+            </div>
+        </div>
+</div>
         <div class="cards-content">
             <div class="projects">
                 <script src="./assets/js/Project/card.js"></script>
@@ -242,24 +272,37 @@ const renderProjectsPage=()=>{
             </div>
         </div> 
     </div>`;
-    loadProjects();
-    loadStudents();
-}
-const renderChatPage=()=>{
-    const tempUsers=JSON.parse(localStorage.getItem('users'));
-    loadLayout('chat');
-    const page=document.querySelector(".page");
-    page.innerHTML= `  <div class="chat">
+  loadProjects();
+  loadStudents();
+};
+const renderChatPage = () => {
+  const tempUsers = JSON.parse(localStorage.getItem("users"));
+  loadLayout("chat");
+  const page = document.querySelector(".page");
+  page.innerHTML = `  <div class="chat">
     <div class="sideUser">
         <h3>List of Students</h3>
         <ul class="user-list">
-        ${tempUsers?tempUsers.map((user)=>{
-            if(user.id!=JSON.parse(localStorage.getItem('currentUser')).id&&JSON.parse(localStorage.getItem('currentUser')).role=='admin')
-            return`<li onclick="currentUser(${user.id})">${user.username}</li>`
-        else if(user.id!=JSON.parse(localStorage.getItem('currentUser')).id&&user.role=='admin')
-            return`<li onclick="currentUser(${user.id})">${user.username}</li>`
-
-        }).join(''):'Empty'}
+        ${tempUsers
+      ? tempUsers
+        .map((user) => {
+          if (
+            user.id !=
+            JSON.parse(localStorage.getItem("currentUser")).id &&
+            JSON.parse(localStorage.getItem("currentUser")).role ==
+            "admin"
+          )
+            return `<li onclick="currentUser(${user.id})">${user.username}</li>`;
+          else if (
+            user.id !=
+            JSON.parse(localStorage.getItem("currentUser")).id &&
+            user.role == "admin"
+          )
+            return `<li onclick="currentUser(${user.id})">${user.username}</li>`;
+        })
+        .join("")
+      : "Empty"
+    }
         </ul>
     </div>
     <div class="chat-area">
@@ -285,10 +328,10 @@ const renderChatPage=()=>{
         </div>
     </div>
 </div>`;
-}
+};
 
-const renderLoginPage=()=>{
-    app.innerHTML=` <div class="auth-form-container">
+const renderLoginPage = () => {
+  app.innerHTML = ` <div class="auth-form-container">
     <form autocomplete="off" class="auth-form" onsubmit="login(event)">
     <h1>Sign In</h1>
         <div class="form-group">
@@ -307,11 +350,10 @@ const renderLoginPage=()=>{
         <p class="sign-up-btn-page" onclick="goToSignUpPage()">Dont have an account ? <span>signUp</span></p>
     </form>
 </div>`;
+};
 
-}
-
-const renderSignupPage=()=>{
-    app.innerHTML=` <div class="auth-form-container">
+const renderSignupPage = () => {
+  app.innerHTML = ` <div class="auth-form-container">
         <form autocomplete="off" onsubmit="signUpSubmit(event)" class="auth-form">
         <h1>Sign Up</h1>
             <div class="form-group">
@@ -338,45 +380,37 @@ const renderSignupPage=()=>{
             <input type="submit" value="Sign Up" class='auth-btn'>
             <p onclick="goToLoginPage()">Have an account ? <span>login</span></p>
         </form>
-    </div>`
-}
-const renderEmpty=()=>{
-    app.innerHTML='<div>Page not found</div>';
-}
+    </div>`;
+};
+const renderEmpty = () => {
+  app.innerHTML = "<div>Page not found</div>";
+};
 
-
-const renderCurrentPage=()=>{
-    if(currentPage==null||currentPage==''){
-        localStorage.setItem('currentPage','login');
-        renderLoginPage();
-    }
-    else if(currentPage=='login'){
-        localStorage.setItem('currentPage','login');
-        renderLoginPage();
-    }
-    else if(currentPage=='signup'){
-        localStorage.setItem('currentPage','signup');
-        renderSignupPage();
-    }
-    else if(currentPage=='home'){
-        localStorage.setItem('currentPage','home');
-        renderHomePage();
-    }
-    else if(currentPage=='tasks'){
-        localStorage.setItem('currentPage','tasks');
-        renderTasksPage();
-    }
-    else if(currentPage=='projects'){
-        localStorage.setItem('currentPage','projects');
-        renderProjectsPage();
-    }
-    else if(currentPage=='chat'){
-        localStorage.setItem('currentPage','chat');
-        renderChatPage();
-    }
-    else {
-        renderEmpty();
-    }
-}
+const renderCurrentPage = () => {
+  if (currentPage == null || currentPage == "") {
+    localStorage.setItem("currentPage", "login");
+    renderLoginPage();
+  } else if (currentPage == "login") {
+    localStorage.setItem("currentPage", "login");
+    renderLoginPage();
+  } else if (currentPage == "signup") {
+    localStorage.setItem("currentPage", "signup");
+    renderSignupPage();
+  } else if (currentPage == "home") {
+    localStorage.setItem("currentPage", "home");
+    renderHomePage();
+  } else if (currentPage == "tasks") {
+    localStorage.setItem("currentPage", "tasks");
+    renderTasksPage();
+  } else if (currentPage == "projects") {
+    localStorage.setItem("currentPage", "projects");
+    renderProjectsPage();
+  } else if (currentPage == "chat") {
+    localStorage.setItem("currentPage", "chat");
+    renderChatPage();
+  } else {
+    renderEmpty();
+  }
+};
 
 renderCurrentPage();
