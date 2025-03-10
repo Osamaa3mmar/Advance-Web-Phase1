@@ -1,7 +1,7 @@
 const app = document.querySelector(".app");
 let currentPage = localStorage.getItem("currentPage");
 const osama = document.querySelector(".osama");
-
+let dateInterval;
 const Toast = Swal.mixin({
   toast: true,
   position: "top-start",
@@ -54,15 +54,13 @@ const loadLayout = (pageId) => {
     localStorage.getItem("currentUser")
   ).role;
 };
-const renderHomePage = () => {
-  loadLayout("home");
-  let currStu = JSON.parse(localStorage.getItem("currentUser"));
+const renderHomePage=()=>{
+    loadLayout('home');
+    let currStu=JSON.parse(localStorage.getItem("currentUser"))
 
-  const page = document.querySelector(".page");
-  page.innerHTML =
-    currStu.role == "admin"
-      ? `
-    <div class="container">
+    const page=document.querySelector(".page");
+    page.innerHTML=currStu.role=="admin"?`
+    <div class="containerofHomePage">
 
         <span class="title">Welcome to the Task Managment System</span>
     <span id="date"></span>
@@ -78,11 +76,38 @@ const renderHomePage = () => {
         <canvas id="myChart"></canvas>
     </div>
    
-    </div>`
-      : ` `;
-  if (currStu.role == "admin") fun1();
+    </div>`:`
+    <div class="containerofHomePage">
+
+        <span class="title">Welcome to the Task Managment System</span>
+    <span id="date"></span>
+
+    <h1 id="Welcome_msg">Welcome ${JSON.parse(localStorage.getItem("currentUser")).username}</h1>
+   
+    </div>
+    `;
+   if(currStu.role=="admin")
+    fun1();
+
+   dateInterval=setInterval(()=>{    let d=new Date();
+    const options = {
+  weekday: 'long', 
+  year: 'numeric', 
+  month: 'long',  
+  day: 'numeric',  
+  hour: 'numeric', 
+  minute: 'numeric',
+  second: 'numeric',
+  hour12: true,    
 };
 
+const formatter = new Intl.DateTimeFormat('en-US', options);
+const formattedDate = formatter.format(d);
+
+    document.getElementById("date").innerHTML=formattedDate;
+
+},1000)
+}
 const renderTasksPage = () => {
   let user = JSON.parse(localStorage.getItem("currentUser")).role;
 
@@ -387,6 +412,7 @@ const renderEmpty = () => {
 };
 
 const renderCurrentPage = () => {
+      clearInterval(dateInterval)
   if (currentPage == null || currentPage == "") {
     localStorage.setItem("currentPage", "login");
     renderLoginPage();
