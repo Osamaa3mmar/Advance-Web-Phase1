@@ -1,12 +1,13 @@
 function getData(){
 
     return{
-        "projectCount":12,
-        "StudentCount":19,
-        "TasksCount":3,
-        "FinishedProjrctsCount":5
+        "projectCount":JSON.parse(localStorage.getItem("projects")).length,
+        "StudentCount":JSON.parse(localStorage.getItem("users")).filter(user=>user.role!="admin").length,
+        "TasksCount":JSON.parse(localStorage.getItem("Tasks")).length,
+        "FinishedProjrctsCount":JSON.parse(localStorage.getItem("projects")).filter(t=>getPercent(t.title)==100).length
     }
 }
+
  const fun1= ()=>{
     let data=getData();
     document.getElementById("Projects_count").innerText=data.projectCount;
@@ -46,24 +47,6 @@ function getData(){
             }
         }
     });
-    let d=new Date();
-    const options = {
-  weekday: 'long', // Full day name (e.g., "Saturday")
-  year: 'numeric', // Full year (e.g., "2025")
-  month: 'long',   // Full month name (e.g., "February")
-  day: 'numeric',  // Day of the month (e.g., "22")
-  hour: 'numeric', // Hour (e.g., "5")
-  minute: 'numeric', // Minute (e.g., "15")
-  second: 'numeric', // Second (e.g., "27")
-  hour12: true,    // Use 12-hour format (e.g., "PM")
-};
-
-const formatter = new Intl.DateTimeFormat('en-US', options);
-const formattedDate = formatter.format(d);
-
-    document.getElementById("date").innerHTML=formattedDate;
-    // `${dayofWeek[d.getDay()]},${d.getUTCMonth()} ${d.getUTCDay()},${d.getUTCFullYear()} at ${d.getUTCHours()}: ${d.getUTCMinutes()}: ${d.getUTCSeconds()} `
-
 
 };
 
