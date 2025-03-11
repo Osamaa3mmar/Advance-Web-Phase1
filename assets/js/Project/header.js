@@ -34,3 +34,11 @@ function filterProjects() {
       filterValue === null || progressValue === filterValue ? "block" : "none";
   });
 }
+document.addEventListener("DOMContentLoaded", function () {
+
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  
+  if (currentUser && currentUser.role !== "admin") {
+    document.querySelector(".add-project").style.display = "none";
+  }
+});
