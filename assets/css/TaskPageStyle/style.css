@@ -11,6 +11,7 @@
     display: flex;
     justify-content: start;
     align-items: center;
+    overflow: scroll;
 }
 .header {
     display: flex;
@@ -29,6 +30,7 @@
 
 .sort-container label {
     color: #888;
+    font-size:clamp(10px,1vw,20px);
 }
 .header{height: 50px;}
 select, input, textarea {
@@ -37,7 +39,7 @@ select, input, textarea {
     padding: 8px 12px;
     border: 1px solid #444;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: clamp(10px,1vw,20px);;
 }
 
 .create-btn {
@@ -73,11 +75,13 @@ table {
 }
 
 th, td {
-    padding: 12px;
+    padding: 8px;
     text-align: left;
     border-bottom: 1px solid #333;
     color:var(--text);
     font-family: var(--font);
+    font-size:  clamp(6px,1vw,20px);
+   
 }
 
 th {
@@ -88,7 +92,7 @@ th {
 .status {
     padding: 4px 8px;
     border-radius: 4px;
-    font-size: 14px;
+    font-size:   clamp(6px,1vw,20px);
     background: transparent;
     display: inline;
     border: 0;

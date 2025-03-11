@@ -1,13 +1,17 @@
 function getData(){
 
     return{
-        "projectCount":12,
-        "StudentCount":19,
-        "TasksCount":3,
-        "FinishedProjrctsCount":5
+        
+        "projectCount":JSON.parse(localStorage.getItem("projects"))?JSON.parse(localStorage.getItem("projects")).length:0,
+        "StudentCount":JSON.parse(localStorage.getItem("users"))?JSON.parse(localStorage.getItem("users")).filter(user=>user.role!="admin").length:0,
+        "TasksCount":JSON.parse(localStorage.getItem("Tasks"))?JSON.parse(localStorage.getItem("Tasks")).length:0,
+        "FinishedProjrctsCount":JSON.parse(localStorage.getItem("projects"))?JSON.parse(localStorage.getItem("projects")).filter(t=>getPercent(t.title)==100).length:0
     }
 }
- const fun1= ()=>{
+
+
+ function build_chart(){
+
     let data=getData();
     document.getElementById("Projects_count").innerText=data.projectCount;
     document.getElementById("Students_count").innerText=data.StudentCount;
@@ -38,7 +42,7 @@ function getData(){
             }]
         },
         options: {
-            // indexAxis: 'y',
+            indexAxis:window.screen.width<450? 'y':"",
             scales: {
                 y: {
                     beginAtZero: true
@@ -46,24 +50,7 @@ function getData(){
             }
         }
     });
-    let d=new Date();
-    const options = {
-  weekday: 'long', // Full day name (e.g., "Saturday")
-  year: 'numeric', // Full year (e.g., "2025")
-  month: 'long',   // Full month name (e.g., "February")
-  day: 'numeric',  // Day of the month (e.g., "22")
-  hour: 'numeric', // Hour (e.g., "5")
-  minute: 'numeric', // Minute (e.g., "15")
-  second: 'numeric', // Second (e.g., "27")
-  hour12: true,    // Use 12-hour format (e.g., "PM")
-};
 
-const formatter = new Intl.DateTimeFormat('en-US', options);
-const formattedDate = formatter.format(d);
-
-    document.getElementById("date").innerHTML=formattedDate;
-    // `${dayofWeek[d.getDay()]},${d.getUTCMonth()} ${d.getUTCDay()},${d.getUTCFullYear()} at ${d.getUTCHours()}: ${d.getUTCMinutes()}: ${d.getUTCSeconds()} `
-
-
+    return myChart;
 };
 
