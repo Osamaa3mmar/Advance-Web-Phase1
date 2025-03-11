@@ -1,14 +1,17 @@
 function getData(){
 
     return{
-        "projectCount":JSON.parse(localStorage.getItem("projects")).length,
-        "StudentCount":JSON.parse(localStorage.getItem("users")).filter(user=>user.role!="admin").length,
-        "TasksCount":JSON.parse(localStorage.getItem("Tasks")).length,
-        "FinishedProjrctsCount":JSON.parse(localStorage.getItem("projects")).filter(t=>getPercent(t.title)==100).length
+        
+        "projectCount":JSON.parse(localStorage.getItem("projects"))?JSON.parse(localStorage.getItem("projects")).length:0,
+        "StudentCount":JSON.parse(localStorage.getItem("users"))?JSON.parse(localStorage.getItem("users")).filter(user=>user.role!="admin").length:0,
+        "TasksCount":JSON.parse(localStorage.getItem("Tasks"))?JSON.parse(localStorage.getItem("Tasks")).length:0,
+        "FinishedProjrctsCount":JSON.parse(localStorage.getItem("projects"))?JSON.parse(localStorage.getItem("projects")).filter(t=>getPercent(t.title)==100).length:0
     }
 }
 
- const fun1= ()=>{
+
+ function build_chart(){
+
     let data=getData();
     document.getElementById("Projects_count").innerText=data.projectCount;
     document.getElementById("Students_count").innerText=data.StudentCount;
@@ -39,7 +42,7 @@ function getData(){
             }]
         },
         options: {
-            // indexAxis: 'y',
+            indexAxis:window.screen.width<450? 'y':"",
             scales: {
                 y: {
                     beginAtZero: true
@@ -48,5 +51,6 @@ function getData(){
         }
     });
 
+    return myChart;
 };
 
