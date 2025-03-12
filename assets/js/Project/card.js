@@ -1,3 +1,20 @@
+function filterProjectsByStatus(status) {
+  let projects = JSON.parse(localStorage.getItem("projects")) || [];
+  let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+  // Filter projects based on user role
+  if (currentUser.role != "admin") {
+    projects = projects.filter((t) => t.students.includes(currentUser.username));
+  }
+
+  // Filter projects based on the selected status
+  if (status !== "all") {
+    projects = projects.filter((project) => project.status === status);
+  }
+
+  renderProjects(projects);
+}
+
 function getPercent(project) {
   let Tasks = JSON.parse(localStorage.getItem("Tasks")) || [];
   let count = 0;
@@ -70,15 +87,23 @@ function showProjectDetails(projectTitle) {
   const project = projects.find(p => p.title === projectTitle);
 
   if (!project) {
-    console.error("Project not found!");
-    return;
+      console.error("Project not found!");
+      return;
   }
 
-  // Get DOM elements
   const projectInfo = document.querySelector(".project-info");
-  const taskList = projectInfo.querySelector(".task-list");
+  
+  if (!projectInfo) {
+      console.error("Error: .project-info container not found!");
+      return;
+  }
 
-  // Update project info
+  const taskList = projectInfo.querySelector(".task-list");
+  if (!taskList) {
+      console.error("Error: .task-list not found inside .project-info!");
+      return;
+  }
+
   projectInfo.querySelector(".project-title").textContent = project.title;
   projectInfo.querySelector(".project-description").textContent = project.description;
   projectInfo.querySelector(".project-category").textContent = project.category;
@@ -86,37 +111,38 @@ function showProjectDetails(projectTitle) {
   projectInfo.querySelector(".project-start").textContent = project.startDate;
   projectInfo.querySelector(".project-end").textContent = project.endDate;
 
-  // Clear existing tasks
   taskList.innerHTML = "";
 
-  // Add filtered tasks
-  tasks
-    .filter(task => task.project === projectTitle)
-    .forEach(task => {
-      const taskCard = document.createElement("div");
-      taskCard.className = "task-card";
-      taskCard.innerHTML = `
-        <p><strong>Task ID:</strong> ${task.id}</p>
-        <p><strong>Task Name:</strong> ${task.title}</p>
-        <p><strong>Description:</strong> ${task.description}</p>
-        <p><strong>Assigned Student:</strong> ${task.assignedStudent}</p>
-        <p><strong>Status:</strong> 
-          <span class="status ${task.status.toLowerCase().replace(' ', '-')}">
-            ${task.status}
-          </span>
-        </p>
-      `;
-      taskList.appendChild(taskCard);
-    });
+  tasks.filter(task => task.project === projectTitle)
+      .forEach(task => {
+          const taskCard = document.createElement("div");
+          taskCard.className = "task-card";
+          taskCard.innerHTML = `
+              <p><strong>Task ID:</strong> ${task.id}</p>
+              <p><strong>Task Name:</strong> ${task.title}</p>
+              <p><strong>Description:</strong> ${task.description}</p>
+              <p><strong>Assigned Student:</strong> ${task.assignedStudent}</p>
+              <p><strong>Status:</strong> 
+                  <span class="status ${task.status.toLowerCase().replace(' ', '-')}">
+                      ${task.status}
+                  </span>
+              </p>
+          `;
+          taskList.appendChild(taskCard);
+      });
 
-  // Show the sidebar
   projectInfo.classList.add("active");
 
-  // Close button functionality
-  projectInfo.querySelector(".close-btn").addEventListener("click", () => {
-    projectInfo.classList.remove("active");
-  });
+  // Ensure close button event listener is only added once
+  const closeBtn = projectInfo.querySelector(".close-btn");
+  if (closeBtn && !closeBtn.hasEventListener) {
+      closeBtn.addEventListener("click", () => {
+          projectInfo.classList.remove("active");
+      });
+      closeBtn.hasEventListener = true; // Prevent duplicate event listeners
+  }
 }
+
 
 // Call loadProjects to load the projects when the page loads
 document.addEventListener("DOMContentLoaded", loadProjects);

@@ -196,17 +196,28 @@ const renderProjectsPage=()=>{
                 Add New Project
             </button>
            <input type="text" class="search-bar" placeholder="Search projects by title..." onkeyup="searchProjects()">
-            <select class="status" onchange="filterProjects()">
-                <option value="all">All Statuses</option>
-                <option value="in-progress">In Progress</option>
-                <option value="completed">Completed</option>
-                <option value="pending">Pending</option>
-                <option value="on-hold">On Hold</option>
-                <option value="cancelled">Cancelled</option>
-            </select>              
+        <select class="status" onchange="filterProjectsByStatus(this.value)">
+            <option value="all">All Statuses</option>
+            <option value="in-progress">In Progress</option>
+            <option value="completed">Completed</option>
+            <option value="pending">Pending</option>
+            <option value="on-hold">On Hold</option>
+            <option value="cancelled">Cancelled</option>
+        </select>     
         </div>
         <br>
-        
+        <div class="project-info">
+            <button class="close-btn">X</button>
+            <h2 class="project-title"></h2>
+            <hr>
+            <p class="project-description"></p>
+            <p><strong>Category:</strong> <span class="project-category"></span></p>
+            <p><strong>Students:</strong> <span class="project-students"></span></p>
+            <p><strong>Start Date:</strong> <span class="project-start"></span></p>
+            <p><strong>End Date:</strong> <span class="project-end"></span></p>
+            <hr>
+            <div class="task-list"></div>
+        </div>
         <div class="cards-content">
             <div class="projects">
                 <script src="./assets/js/Project/card.js"></script>
@@ -236,7 +247,7 @@ const renderProjectsPage=()=>{
                         <div class="students-list" id="studentsList">
                         </div>
                     </div>
-    
+
                     <div class="form-group">
                         <label class="form-label">Project Category:</label>
                         <select class="form-select" required>
@@ -277,6 +288,7 @@ const renderProjectsPage=()=>{
     </div>`;
     loadProjects();
     loadStudents();
+    addCard();
 }
 const renderChatPage=()=>{
     const tempUsers=JSON.parse(localStorage.getItem('users'));
