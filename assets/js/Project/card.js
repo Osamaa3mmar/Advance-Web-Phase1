@@ -1,19 +1,3 @@
-function filterProjectsByStatus(status) {
-  let projects = JSON.parse(localStorage.getItem("projects")) || [];
-  let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
-  // Filter projects based on user role
-  if (currentUser.role != "admin") {
-    projects = projects.filter((t) => t.students.includes(currentUser.username));
-  }
-
-  // Filter projects based on the selected status
-  if (status !== "all") {
-    projects = projects.filter((project) => project.status === status);
-  }
-
-  renderProjects(projects);
-}
 
 function getPercent(project) {
   let Tasks = JSON.parse(localStorage.getItem("Tasks")) || [];
@@ -41,10 +25,15 @@ function loadProjects() {
   }
 
   let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  if (currentUser.role != "admin")
-    projects = projects.filter((t) =>
-      t.students.includes(currentUser.username)
-    );
+  if (currentUser.role !== "admin") {
+    projects = projects.filter((t) => t.students.includes(currentUser.username));
+  }
+
+  let selectedStatus = document.querySelector(".status").value;
+
+  if (selectedStatus !== "all") {
+    projects = projects.filter((project) => project.status.toLowerCase() === selectedStatus.toLowerCase());
+  }
 
   projectsContainer.innerHTML = "";
 
@@ -56,11 +45,9 @@ function loadProjects() {
                 <p><strong>Students:</strong> ${project.students.join(", ")}</p>
                 <p><strong>Category:</strong> ${project.category}</p>
                 <div class="progress">
-                    <div class="progress-bar" style="--i:${getPercent(
-                      project.title
-                    )}%;">
-                    <span class="percent">${getPercent(project.title)}%</span>
-                                <div class="bar"></div>
+                    <div class="progress-bar" style="--i:${getPercent(project.title)}%;">
+                        <span class="percent">${getPercent(project.title)}%</span>
+                        <div class="bar"></div>
                     </div>
                 </div>
                 <div class="dates">
@@ -74,12 +61,13 @@ function loadProjects() {
 
   // Add event listeners to project cards
   document.querySelectorAll(".project-card").forEach((card) => {
-    card.addEventListener("click", () => {
-      let projectTitle = card.getAttribute("data-project-title");
+    card.onclick = function () {
+      let projectTitle = this.getAttribute("data-project-title");
       showProjectDetails(projectTitle);
-    });
+    };
   });
 }
+
 
 function showProjectDetails(projectTitle) {
   const projects = JSON.parse(localStorage.getItem("projects")) || [];
