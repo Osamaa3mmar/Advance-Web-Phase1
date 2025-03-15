@@ -136,13 +136,10 @@ tr.innerHTML=`
             btn.innerText="Pending"   
             break;
         }
-console.log(tasks)
-console.log(btn)
-
-
+        console.log(btn.getAttribute("order"))
 tasks[btn.getAttribute("order")].status=btn.innerHTML
-console.log(btn.getAttribute("order"))
-console.log(tasks[btn.getAttribute("order")])
+
+
 
 commit_tasks(tasks)
        
