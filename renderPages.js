@@ -17,7 +17,11 @@ const Toast = Swal.mixin({
     }
   });
   const loadLayout=(pageId)=>{
+    
     const user=JSON.parse(localStorage.getItem("currentUser"));
+    if(user == null){
+        localStorage.setItem('currentPage','login');
+    }
     const layout=`<div class="app-layout">
         <div class="top-bar">
             <div class="name">
