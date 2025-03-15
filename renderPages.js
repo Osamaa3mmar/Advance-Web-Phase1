@@ -399,33 +399,34 @@ const renderEmpty=()=>{
 const renderCurrentPage=()=>{
     clearInterval(dateInterval)
     clearInterval(chart)
-
+    if (!currentPage) currentPage = 'login';
+    const stay=JSON.parse(localStorage.getItem("stay"));
+    console.log(stay)
+    if(stay){
+        localStorage.setItem('currentPage', currentPage);
+    }
     if(currentPage==null||currentPage==''){
-        localStorage.setItem('currentPage','login');
         renderLoginPage();
     }
     else if(currentPage=='login'){
-        localStorage.setItem('currentPage','login');
         renderLoginPage();
     }
     else if(currentPage=='signup'){
-        localStorage.setItem('currentPage','signup');
         renderSignupPage();
     }
     else if(currentPage=='home'){
-        localStorage.setItem('currentPage','home');
         renderHomePage();
     }
     else if(currentPage=='tasks'){
-        localStorage.setItem('currentPage','tasks');
+        
         renderTasksPage();
     }
     else if(currentPage=='projects'){
-        localStorage.setItem('currentPage','projects');
+        
         renderProjectsPage();
     }
     else if(currentPage=='chat'){
-        localStorage.setItem('currentPage','chat');
+        
         renderChatPage();
     }
     else {

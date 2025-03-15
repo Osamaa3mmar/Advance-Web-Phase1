@@ -8,6 +8,8 @@ const login=(e)=>{
     const loginPasswordInput=document.querySelector('#login-password');
     const loginUsernameInput=document.querySelector('#login-username');
     const users=JSON.parse(localStorage.getItem('users'));
+    const staySign=document.querySelector('.stay-signed').checked;
+    JSON.stringify(localStorage.setItem("stay",staySign));
     if(!users){
      
       
