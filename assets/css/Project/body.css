@@ -27,12 +27,12 @@
   margin: 10px 0;
   overflow: hidden;
 }
-.cards-content .projects .project-card .progress .progress-bar {
+/* .cards-content .projects .project-card .{
   height: 100%;
   background-color: var(--blue);
   text-align: center;
   color: white;
-}
+} */
 .cards-content .projects .project-card .dates {
   display: flex;
   justify-content: space-between;
@@ -41,4 +41,45 @@
 }
 .cards-content .projects .project-card:hover {
   transform: scale(1.03);
+}
+
+
+.progress-bar {
+  height: 100%;
+  text-align: center;
+  color: white;
+  width: 100%;
+  position: relative;
+  background: gray;
+  width: 200px;
+  height: 25px;
+  border-radius: 50px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.percent{
+  position: relative;
+  z-index: 1;
+}
+
+.bar{
+ 
+  background: var(--blue);
+  width:var(--i);
+  height: 100%;
+  left: 0;
+  top:0;
+  position: absolute;
+  z-index: 0;
+}
+
+.progress {
+  height: 100%;
+  border-radius: var(--border-radus);
+  margin: 10px 0;
+  overflow: hidden;
 }

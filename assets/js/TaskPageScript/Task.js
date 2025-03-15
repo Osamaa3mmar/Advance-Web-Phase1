@@ -3,7 +3,7 @@ function fetch_tasks() {
     const tasks = localStorage.getItem("Tasks");
    let task= tasks ? JSON.parse(tasks) : []; // Return an empty array if null
    let currStu=JSON.parse(localStorage.getItem("currentUser"))
-   if(currStu.role!="admin")
+   if(currStu != null && currStu.role!="admin")
     task=task.filter(t=>t.assigned==currStu.username)
    return task;
 }

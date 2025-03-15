@@ -75,7 +75,7 @@ function saveTask() {
         taskName: document.getElementById('taskName').value,
         description: document.getElementById('description').value,
         assigned: document.getElementById('assigned').value,
-        status: "pending",
+        status: "Pending",
         dueDate: document.getElementById('dueDate').value
     });
     let tableBody=document.querySelector("#taskTableBody")

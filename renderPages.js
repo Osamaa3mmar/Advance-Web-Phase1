@@ -1,8 +1,8 @@
 const app=document.querySelector('.app');
 let currentPage=localStorage.getItem('currentPage');
 const osama=document.querySelector('.osama');
-
-
+let dateInterval;
+let chart;
 const Toast = Swal.mixin({
     toast: true,
     position: "top-start",
@@ -17,7 +17,11 @@ const Toast = Swal.mixin({
     }
   });
   const loadLayout=(pageId)=>{
+    
     const user=JSON.parse(localStorage.getItem("currentUser"));
+    if(user == null){
+        localStorage.setItem('currentPage','login');
+    }
     const layout=`<div class="app-layout">
         <div class="top-bar">
             <div class="name">
@@ -53,10 +57,10 @@ const renderHomePage=()=>{
 
     const page=document.querySelector(".page");
     page.innerHTML=currStu.role=="admin"?`
-    <div class="container">
-
-        <span class="title">Welcome to the Task Managment System</span>
-    <span id="date"></span>
+    <div class="containerofHomePage">
+<div class="headofHomePage">  <span class="title">Welcome to the Task Managment System</span>
+    <span id="date"></span> </div>
+      
 
     <div class="cards_bar">
     <div class="cards" >number of Projects <br> <span id="Projects_count">5</span></div>
@@ -69,9 +73,40 @@ const renderHomePage=()=>{
         <canvas id="myChart"></canvas>
     </div>
    
-    </div>`:` `;
-   if(currStu.role=="admin")
-    fun1();
+    </div>`:`
+    <div class="containerofHomePage">
+
+        <span class="title">Welcome to the Task Managment System</span>
+    <span id="date"></span>
+
+    <h1 id="Welcome_msg">Welcome ${JSON.parse(localStorage.getItem("currentUser")).username}</h1>
+   
+    </div>
+    `;
+   if(currStu.role=="admin"){    
+    let chart=build_chart();
+    chart=setInterval(()=>{chart.indexAxis=window.screen.width<450? 'y':""; console.log()},1000);
+}
+
+   dateInterval=setInterval(()=>{   
+     let d=new Date();
+    const options = {
+  weekday: 'long', 
+  year: 'numeric', 
+  month: 'long',  
+  day: 'numeric',  
+  hour: 'numeric', 
+  minute: 'numeric',
+  second: 'numeric',
+  hour12: true,    
+};
+
+const formatter = new Intl.DateTimeFormat('en-US', options);
+const formattedDate = formatter.format(d);
+
+    document.getElementById("date").innerHTML=formattedDate;
+
+},1000)
 }
 
 const renderTasksPage=()=>{
@@ -165,17 +200,30 @@ const renderProjectsPage=()=>{
                 Add New Project
             </button>
            <input type="text" class="search-bar" placeholder="Search projects by title..." onkeyup="searchProjects()">
-            <select class="status" onchange="filterProjects()">
-                <option value="all">All Statuses</option>
-                <option value="in-progress">In Progress</option>
-                <option value="completed">Completed</option>
-                <option value="pending">Pending</option>
-                <option value="on-hold">On Hold</option>
-                <option value="cancelled">Cancelled</option>
-            </select>              
+        <select class="status" onchange="loadProjects()">
+            <option value="all">All Statuses</option>
+            <option value="in-progress">In Progress</option>
+            <option value="completed">Completed</option>
+            <option value="pending">Pending</option>
+            <option value="on-hold">On Hold</option>
+            <option value="cancelled">Cancelled</option>
+        </select>
         </div>
         <br>
-        
+        <div class="project-info">
+            <button class="close-btn">x</button>
+            <h2 class="project-title"></h2>
+            <hr>
+            <br>
+            <p class="project-description"></p>
+            <p><strong style="color :gold">Category:</strong> <span class="project-category"></span></p>
+            <p><strong style="color :gold">Students:</strong> <span class="project-students"></span></p>
+            <p><strong style="color :gold">Start Date:</strong> <span class="project-start"></span></p>
+            <p><strong style="color :gold">End Date:</strong> <span class="project-end"></span></p>
+            <br>
+            <hr>
+            <div class="task-list"></div>
+        </div>
         <div class="cards-content">
             <div class="projects">
                 <script src="./assets/js/Project/card.js"></script>
@@ -205,15 +253,15 @@ const renderProjectsPage=()=>{
                         <div class="students-list" id="studentsList">
                         </div>
                     </div>
-    
+
                     <div class="form-group">
                         <label class="form-label">Project Category:</label>
                         <select class="form-select" required>
                             <option value="" disabled selected>Select a category</option>
-                            <option value="web">Web Development</option>
-                            <option value="mobile">Mobile Development</option>
-                            <option value="design">Design</option>
-                            <option value="research">Research</option>
+                            <option value="Web Development">Web Development</option>
+                            <option value="Mobile Development">Mobile Development</option>
+                            <option value="Design">Design</option>
+                            <option value="Research">Research</option>
                         </select>
                     </div>
     
@@ -233,7 +281,9 @@ const renderProjectsPage=()=>{
                         <select class="form-select" required>
                             <option value="in-progress">In Progress</option>
                             <option value="completed">Completed</option>
+                            <option value="pending">Pending</option>
                             <option value="on-hold">On Hold</option>
+                            <option value="cancelled">Cancelled</option>
                         </select>
                     </div>
                     <button class="submit-btn" onclick="saveProject()">Add Project</button>
@@ -244,6 +294,7 @@ const renderProjectsPage=()=>{
     </div>`;
     loadProjects();
     loadStudents();
+    addCard();
 }
 const renderChatPage=()=>{
     const tempUsers=JSON.parse(localStorage.getItem('users'));
@@ -346,6 +397,9 @@ const renderEmpty=()=>{
 
 
 const renderCurrentPage=()=>{
+    clearInterval(dateInterval)
+    clearInterval(chart)
+
     if(currentPage==null||currentPage==''){
         localStorage.setItem('currentPage','login');
         renderLoginPage();

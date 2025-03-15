@@ -42,7 +42,6 @@
   background-color: var(--status);
   color: var(--background);
   border-radius: var(--border-radus);
-  padding: 10px 15px;
   border: none;
   cursor: pointer;
 }
