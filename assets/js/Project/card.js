@@ -107,9 +107,9 @@ function showProjectDetails(projectTitle) {
           taskCard.className = "task-card";
           taskCard.innerHTML = `
               <p><strong>Task ID:</strong> ${task.id}</p>
-              <p><strong>Task Name:</strong> ${task.title}</p>
+              <p><strong>Task Name:</strong> ${task.taskName}</p>
               <p><strong>Description:</strong> ${task.description}</p>
-              <p><strong>Assigned Student:</strong> ${task.assignedStudent}</p>
+              <p><strong>Assigned Student:</strong> ${task.assigned}</p>
               <p><strong>Status:</strong> 
                   <span class="status ${task.status.toLowerCase().replace(' ', '-')}">
                       ${task.status}

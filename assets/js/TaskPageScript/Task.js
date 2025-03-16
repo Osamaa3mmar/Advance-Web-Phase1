@@ -9,54 +9,7 @@ function fetch_tasks() {
 }
 
 function commit_tasks(tasks) {
-    if(tasks==undefined)
-         tasks = [
-            {
-                id: 1,
-                project: "Website Redesign",
-                taskName: "Design Homepage",
-                description: "Create a responsive design for the homepage.",
-                assigned: "Ali Yaseen",
-                status: "In Progress",
-                dueDate: "4/22/2023"
-            },
-            {
-                id: 2,
-                project: "Website Redesign",
-                taskName: "Develop API",
-                description: "Set up the backend API for the project.",
-                assigned: "Braa Aeesh",
-                status: "Completed",
-                dueDate: "1/16/2023"
-            },
-            {
-                id: 3,
-                project: "Mobile App Development",
-                taskName: "Write Documentation",
-                description: "Document the project setup and usage.",
-                assigned: "Ibn Al-Jawzee",
-                status: "Pending",
-                dueDate: "3/15/2023"
-            },
-            {
-                id: 4,
-                project: "Mobile App Development",
-                taskName: "Testing",
-                description: "Conduct testing for all features.",
-                assigned: "Ibn Malik",
-                status: "In Progress",
-                dueDate: "11/29/2023"
-            },
-            {
-                id: 5,
-                project: "E-commerce Platform",
-                taskName: "Deploy Application",
-                description: "Deploy the application to the production server.",
-                assigned: "Ayman Outom",
-                status: "Pending",
-                dueDate: "3/24/2023"
-            }
-        ];
+   
     localStorage.setItem("Tasks", JSON.stringify(tasks)); // Convert to JSON before storing
 }
 
