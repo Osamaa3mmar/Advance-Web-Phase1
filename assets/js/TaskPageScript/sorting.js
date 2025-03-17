@@ -28,6 +28,5 @@ return 0;
 
 
 function SortByHandler(event){
-    // console.log(event.target.value)
     sortTable(event.target.value)
 }

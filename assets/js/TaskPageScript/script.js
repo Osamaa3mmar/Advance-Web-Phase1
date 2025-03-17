@@ -1,6 +1,10 @@
 let tableBody=document.querySelector("#taskTableBody")
 let tasks=fetch_tasks()
+const taskJSON = localStorage.getItem("Tasks");
+let globalTask= taskJSON ? JSON.parse(taskJSON) : [];
 let tasks_count=0
+
+
 
 function BuildPage(){
     let tableBody=document.querySelector("#taskTableBody")
@@ -12,11 +16,11 @@ function randerTable(tasks){
     div.innerHTML=""
     tasks.forEach(element => {
         div.appendChild(build_task(element))
-       
+
     });
     return div.innerHTML
 }
 
-
+console.log("globalTask:",globalTask)
 
 //BuildPage()

@@ -1,4 +1,3 @@
-
 function fetch_tasks() {
     const tasks = localStorage.getItem("Tasks");
    let task= tasks ? JSON.parse(tasks) : []; // Return an empty array if null
@@ -9,7 +8,7 @@ function fetch_tasks() {
 }
 
 function commit_tasks(tasks) {
-   
+
     localStorage.setItem("Tasks", JSON.stringify(tasks)); // Convert to JSON before storing
 }
 
@@ -89,12 +88,14 @@ tr.innerHTML=`
             btn.innerText="Pending"   
             break;
         }
-        console.log(btn.getAttribute("order"))
-tasks[btn.getAttribute("order")].status=btn.innerHTML
+        console.log("--------btn",btn.getAttribute("order") )
+        console.log("--------tasks",globalTask[btn.getAttribute("order")] )
+// tasks[btn.getAttribute("order")].status=btn.innerHTML;
+
+globalTask[btn.getAttribute("order")].status=btn.innerHTML;
 
 
-
-commit_tasks(tasks)
+commit_tasks(globalTask)
        
 }
 
